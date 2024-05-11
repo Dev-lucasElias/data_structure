@@ -35,14 +35,17 @@ class stack:
                 return False
            else:  
                 self.__last = new_last
+                self.__count -= 1
 
       def PrintStack(self):
            element_moment = self.__last
-           for i in self.__count:
+           for i in range(self.__count):
                 print(element_moment.getValue())
                 print(" ")
                 element_moment = element_moment.getNext()
 
+# ================ TEST ===============================            
+              
 e1 = Element("lucas")
 e2 = Element("evandro")
 e3 = Element("Daniel")
@@ -51,8 +54,10 @@ pilha = stack()
 pilha.pop(e1)
 pilha.pop(e2)
 pilha.pop(e3)
+pilha.push()
+pilha.push()
+pilha.pop(e2)
+print(pilha.getLen())
 pilha.PrintStack()
-            
-              
 
  
