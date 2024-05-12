@@ -9,7 +9,7 @@ class ListaEncadeada:
 
     def __avancarKPosicoes(self, K: int): # se caso ultrapassar a lista, considera-se o ultimo
         for i in range(K):
-            self.__cursor = self.__cursor.getProximo() if self.__cursor.getProximo() != None else self.__cursor
+            self.__cursor = self.__cursor.getNext() if self.__cursor.getNext() != None else self.__cursor
     
     def __retrocederKPosicoes(self, K: int): # se caso ultrapassar a lista, considera-se o primeiro
         for i in range(K):
@@ -37,7 +37,7 @@ class ListaEncadeada:
         if  self.__tamanhoDaLista == 0:
             self.__ultimo = novo_primeiro
         else:
-            novo_primeiro.setProximo(self.__primeiro)
+            novo_primeiro.setNext(self.__primeiro)
             self.__primeiro.setAnterior(novo_primeiro)
 
         self.__primeiro = novo_primeiro
@@ -49,7 +49,7 @@ class ListaEncadeada:
         if  self.__tamanhoDaLista == 0:
             self.__primeiro = novo_ultimo
         else:
-            self.__ultimo.setProximo(novo_ultimo)
+            self.__ultimo.setNext(novo_ultimo)
             novo_ultimo.setAnterior(self.__ultimo)
 
         self.__ultimo = novo_ultimo
@@ -61,8 +61,8 @@ class ListaEncadeada:
         else:
             anterior = self.__cursor.getAnterior()
             self.__cursor.setAnterior(novo)
-            novo.setProximo(self.__cursor)
-            anterior.setProximo(novo)
+            novo.setNext(self.__cursor)
+            anterior.setNext(novo)
             novo.setAnterior(anterior)
             self.__tamanhoDaLista += 1
     
@@ -70,11 +70,11 @@ class ListaEncadeada:
         if self.__cursor == self.__ultimo:
             self.inserirComoUltimo(novo)
         else:
-            proximo = self.__cursor.getProximo()
-            self.__cursor.setProximo(novo)
+            proximo = self.__cursor.getNext()
+            self.__cursor.setNext(novo)
             novo.setAnterior(self.__cursor)
             proximo.setAnterior(novo)
-            novo.setProximo(proximo)
+            novo.setNext(proximo)
             self.__tamanhoDaLista += 1
     
     def inserirNaPosicao(self, novo: Element, k: int): #não move o cursor
@@ -89,12 +89,12 @@ class ListaEncadeada:
             if self.__tamanhoDaLista > 0:
                 anterior = self.__cursor.getAnterior()
                 proximo = self.__cursor
-                novo.setProximo(proximo)
+                novo.setNext(proximo)
                 novo.setAnterior(anterior)
                 if anterior == None:
                     self.__primeiro = novo
                 else:
-                    anterior.setProximo(novo)
+                    anterior.setNext(novo)
                 proximo.setAnterior(novo)
                 self.__cursor = copiaCursor
                 self.__tamanhoDaLista += 1
@@ -104,9 +104,9 @@ class ListaEncadeada:
     def ExcluirAtual(self): #move o cursor para o proximo dele antes de ser exluido, mantendo na mesma posição, caso não tenha proximo, move para o anterior
         if self.__cursor != None:
             anteriorDoCursor = self.__cursor.getAnterior()
-            proximoDoCursor = self.__cursor.getProximo()
+            proximoDoCursor = self.__cursor.getNext()
             if anteriorDoCursor != None:
-                anteriorDoCursor.setProximo(proximoDoCursor)
+                anteriorDoCursor.setNext(proximoDoCursor)
             if proximoDoCursor != None:
                 proximoDoCursor.setAnterior(anteriorDoCursor)
                 self.__cursor = proximoDoCursor
@@ -131,7 +131,7 @@ class ListaEncadeada:
             if anteriorDoUltimo != None:
                 if self.__cursor == self.__ultimo:
                     self.__cursor == anteriorDoUltimo
-                anteriorDoUltimo.setProximo(None)
+                anteriorDoUltimo.setNext(None)
                 self.__ultimo = anteriorDoUltimo
                 self.__cursor = copiaCursor
             else:
@@ -145,7 +145,7 @@ class ListaEncadeada:
         self.__irParaOPrimeiro()
 
         if self.__primeiro != None:
-            proximoDoPrimeiro = self.__primeiro.getProximo()
+            proximoDoPrimeiro = self.__primeiro.getNext()
             if proximoDoPrimeiro != None:
                 if self.__cursor == self.__primeiro:
                     self.__cursor == proximoDoPrimeiro
@@ -162,7 +162,7 @@ class ListaEncadeada:
         copiaCursor = self.__cursor
         if self.buscarElemento(valor) == True:
             self.ExcluirAtual()
-            if copiaCursor.getValor() != valor:
+            if copiaCursor.getValue() != valor:
                 self.__cursor = copiaCursor
         
     def ExcluirDaPosicao(self, k: int): #Move o cursor caso ele seja o elemento excluido
@@ -176,11 +176,11 @@ class ListaEncadeada:
             self.__avancarKPosicoes(k)
             if self.__tamanhoDaLista > 0:
                 anterior = self.__cursor.getAnterior()
-                proximo = self.__cursor.getProximo()
+                proximo = self.__cursor.getNext()
                 if anterior == None:
                     self.__primeiro = proximo
                 else:
-                    anterior.setProximo(proximo)
+                    anterior.setNext(proximo)
                 if proximo == None:
                     self.__ultimo = anterior
                 else:
@@ -198,7 +198,7 @@ class ListaEncadeada:
 
         self.__irParaOPrimeiro()
         while True:
-            if self.__cursor.getValor() == valor:
+            if self.__cursor.getValue() == valor:
                 if self.acessarAtual() == fake:
                     self.ExcluirUltimo()
                     self.__cursor = copiaCursor
@@ -225,9 +225,9 @@ class ListaEncadeada:
     def PrintList(self):
         visualizacaoLista = []
         self.__irParaOPrimeiro()
-        for i in range (lista.getTamanhoLista()):
-            visualizacaoLista.append(lista.acessarAtual().getValor())
-            lista.avancaCursor()
+        for i in range (self.getTamanhoLista()):
+            visualizacaoLista.append(self.acessarAtual().getValue())
+            self.avancaCursor()
         print(visualizacaoLista)
         self.__irParaOPrimeiro()
 
@@ -238,47 +238,3 @@ e4 = Element(4)
 e5 = Element(5)
 e6 = Element(6)
 e7 = Element(7)
-
-# --------Montando a lista------------
-lista = ListaEncadeada()
-lista.inserirComoUltimo(e6)
-lista.inserirComoPrimeiro(e5)
-lista.inserirComoPrimeiro(e4)
-lista.inserirComoPrimeiro(e3)
-lista.inserirComoPrimeiro(e2)
-lista.inserirComoPrimeiro(e1)
-print(" --------IMPRIMINDO LISTA INICIAL------------")
-lista.PrintList()#IMPRIME
-
-if lista.buscarElemento(4):
-    lista.ExcluirAtual()
-print(" --------EXCLUINDO O NUMERO 4------------")
-lista.PrintList()#IMPRIME
-
-lista.inserirComoPrimeiro(e4)
-print("--------INserindo o e4 na primeira posição------------")
-lista.PrintList()#IMPRIME
-
-lista.inserirNaPosicao(e7, 5)
-print(" --------inserindo um novo elemento no lugar ordenado------------")
-lista.PrintList()#IMPRIME
-
-lista.ExcluirUltimo()
-lista.ExcluirPrimeiro()
-print("--------Excluindo primeiro e ultimo------------")
-lista.PrintList()#IMPRIME
-
-lista.ExcluirElemento(3)
-print(" --------Excluir um elemento específico------------")
-lista.PrintList()#IMPRIME
-
-lista.ExcluirDaPosicao(1)
-print(" --------Excluir um elemento pela posição------------")
-lista.PrintList()#IMPRIME
-
-lista.irParaPosicaok(1)
-print(" --------Ir para posicao 1 e inserir antes e depois------------")
-print("Cursor",lista.acessarAtual().getValor())
-lista.inserirAntesDoAtual(e6)
-lista.inserirAposAtual(e3)
-lista.PrintList()#IMPRIME

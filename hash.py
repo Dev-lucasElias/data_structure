@@ -1,5 +1,7 @@
 from element.element import Element
 from ListaDencadeada import ListaEncadeada
+import random
+
 class hash:
             def __init__(self,nElements,fc) -> None:
                   self.__fc = fc
@@ -17,3 +19,26 @@ class hash:
                   hash = self.hash(element.getValue())
                   self.__tabelaEspalhamento[hash].ExcluirElemento(element)
                   
+            def ViewHash(self):
+                  n = 0
+                  for i in self.__tabelaEspalhamento:
+                        print(f"posicao {n}", end = " ") 
+                        i.PrintList()
+                        n +=1
+                        
+            def BuscaByValue(self,value):
+                  hash = self.hash(value)
+                  self.__tabelaEspalhamento[hash].ExcluirElemento(self.__tabelaEspalhamento[hash].buscarElemento(value))
+                        
+            def getNelement(self):
+                  return self.__nElements
+ 
+     
+      
+      
+      
+      
+      
+      
+      
+    

@@ -91,3 +91,6 @@ print("Cursor",lista.acessarAtual().getValor())
 lista.inserirAntesDoAtual(e6)
 lista.inserirAposAtual(e3)
 lista.PrintList()#IMPRIME
+
+
+# ================ TEST HASH ===============================    
