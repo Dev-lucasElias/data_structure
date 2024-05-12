@@ -4,10 +4,16 @@ class Element:
             self.__next = None
 
       def setNext(self,next):
-        self.__next = next
+            self.__next = next
       
       def getNext(self):
             return self.__next
 
       def getValue(self):
-          return self.__value
+            return self.__value
+    
+      def getAnterior(self):
+            return self.__anterior
+      
+      def setAnterior(self, anterior):
+            self.__anterior = anterior
