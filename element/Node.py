@@ -13,7 +13,7 @@ class Node:
       def setLeft(self,novo):
             self.__left = novo
             
-      def setright(self,novo):
+      def setRight(self,novo):
             self.__right = novo
       
       def getValeu(self):
