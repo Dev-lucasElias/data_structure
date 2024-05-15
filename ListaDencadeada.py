@@ -231,10 +231,4 @@ class ListaEncadeada:
         print(visualizacaoLista)
         self.__irParaOPrimeiro()
 
-e1 = Element(1)
-e2 = Element(2)
-e3 = Element(3)
-e4 = Element(4)
-e5 = Element(5)
-e6 = Element(6)
-e7 = Element(7)
+

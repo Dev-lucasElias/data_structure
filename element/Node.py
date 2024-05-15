@@ -16,5 +16,5 @@ class Node:
       def setRight(self,novo):
             self.__right = novo
       
-      def getValeu(self):
+      def getValue(self):
             return self.__value
